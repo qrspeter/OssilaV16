@@ -8,12 +8,12 @@ sweep_start = 0.0
 sweep_step = 0.2
 sweep_end = 1.0
 
-port = 11
+port = 12
 irange = 3
 averaging = 3
 ossila = OssilaV16.OssilaV16(port, irange, averaging)
 
-sample_name = 'rGO_10pc'
+sample_name = 'rGO_100pc-NPl'
 time_for_name = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 path = './data/'
 if not os.path.exists(path):

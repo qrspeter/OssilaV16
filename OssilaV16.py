@@ -19,7 +19,7 @@ class OssilaV16(object):
     __osr       : int # Oversample Rate (OSR) can take values 0-9 for my case (Peter)
     
 
-    def __init__(self, __com_no = 11, __i_range = 3, __osr = 3):
+    def __init__(self, __com_no = 12, __i_range = 3, __osr = 3):
         assert __com_no >= 0 and __com_no <= 20
         assert __i_range >= 1 and __i_range <= 5
         assert __osr >= 0 and __osr <= 9
@@ -162,7 +162,7 @@ if __name__ == "__main__":
     time_for_name = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     filename = path + time_for_name + '_' + sample_name +'_IV_' + str(sweep_end)
     
-    port = 11
+    port = 12
     irange = 3
     averaging = 3
     ossila = OssilaV16(port, irange, averaging)
