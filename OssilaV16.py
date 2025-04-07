@@ -1,12 +1,15 @@
-# Close copy of KeithleyV16.py, an interface-wrapper for OssilaV15.py with IV measurement.
+# A copy of KeithleyV16.py, an interface-wrapper for IV measurements.
 
 import numpy as np
 import datetime
 import os
 
 import xtralien
+import sys
+import serial
 
 import matplotlib.pyplot as plt
+
 
 from dataclasses import dataclass
 
@@ -28,7 +31,14 @@ class OssilaV16(object):
         self.i_range = __i_range
         self.osr = __osr
         
-        self.xtr = xtralien.Device(f'COM{self.com_no}')
+        try:
+            self.xtr = xtralien.Device(f'COM{self.com_no}')
+        except serial.SerialException as e: # serial.serialutil.SerialException
+            print(e)
+            #print(type(e).__name__)
+            #print("Wrong port number!")
+            sys.exit()
+            
         self.xtr.smu1.set.range(self.i_range, response=0)
         self.xtr.smu1.set.osr(self.osr, response=0)
         
@@ -99,9 +109,13 @@ class OssilaV16(object):
         return [voltages, currents]
 
     def __del__(self):
-        # self.xtr.smu1.set.enabled(False, response=0) # OSError: [WinError 6] Неверный дескриптор       
-        self.xtr.close()
-        pass
+        try:
+            # self.xtr.smu1.set.enabled(False, response=0) # OSError: [WinError 6] Неверный дескриптор       
+            self.xtr.close()
+        except AttributeError as e:
+            print(e)
+            #print(type(e).__name__)
+            pass
 
         
 def it(__step=1.0, duration=1000):
