@@ -99,7 +99,7 @@ class OssilaV16(object):
         return [voltages, currents]
 
     def __del__(self):
-        self.xtr.smu1.set.enabled(False, response=0)        
+        # self.xtr.smu1.set.enabled(False, response=0) # OSError: [WinError 6] Неверный дескриптор       
         self.xtr.close()
         pass
 
